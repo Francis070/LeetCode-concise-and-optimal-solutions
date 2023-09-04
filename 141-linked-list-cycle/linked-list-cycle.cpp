@@ -15,14 +15,18 @@ public:
             return false;
 
         slow = head;
-        fast = head->next;
+        // fast = head->next;
+        fast = head;
 
         while(slow && fast && fast->next){
-            if(slow == fast || slow == fast->next)
-                return true;
+            // if(slow == fast || slow == fast->next)
+            //     return true;
 
             slow = slow->next;
             fast = fast->next->next;
+
+            if(slow == fast)
+                return true;
         }
 
         return false;
