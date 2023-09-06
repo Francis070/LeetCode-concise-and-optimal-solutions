@@ -14,20 +14,21 @@ public:
 
     void insert(TreeNode * head, int val){
         
-        if(val < head->val && head->left == NULL){
-            TreeNode * cur = new TreeNode(val);
-            head->left = cur;
-        }
-        else if(val > head->val && head->right == NULL){
-            TreeNode * cur = new TreeNode(val);
-            head->right = cur;
+        TreeNode * cur = new TreeNode(val);
+
+        if(val < head->val){
+            if(head->left == NULL)
+                head->left = cur;
+            else
+                insert(head->left, val);
         }
         else{
-            if(val < head->val)
-                insert(head->left, val);
+            if(head->right == NULL)
+                head->right = cur;
             else
                 insert(head->right, val);
         }
+        
         return;
     }
 
