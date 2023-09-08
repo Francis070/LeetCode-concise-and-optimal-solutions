@@ -20,12 +20,12 @@ public:
             adj[edges[i][0]].push_back(edges[i][1]);
             adj[edges[i][1]].push_back(edges[i][0]);
         }
-
-        for(int i = 0; i < n; i++){
-            if(vis[i] == -1){
-                dfs(i, i, vis, adj);
-            }
-        }
+        dfs(source, 1, vis, adj);
+        // for(int i = 0; i < n; i++){
+        //     if(vis[i] == -1){
+        //         dfs(i, i, vis, adj);
+        //     }
+        // }
 
         if(vis[source] == vis[destination])
             return true;
