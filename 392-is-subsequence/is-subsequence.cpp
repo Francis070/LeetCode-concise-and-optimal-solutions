@@ -1,18 +1,28 @@
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
-        int n1 = s.size(), n2 = t.size();
+        unordered_map<char, vector<int>> uv;
 
-        int i = 0, j = 0;
+        for(int i = 0; i < t.size(); i++)
+            uv[t[i]].push_back(i);
 
-        while(i < n1 && j < n2){
-            if(s[i] == t[j])
-                i++;
-            j++;
+        int low = -1;
+        for(int i = 0; i < s.size(); i++){
+            if(uv.find(s[i]) != uv.end()){
+                int x = lower_bound(uv[s[i]].begin(), uv[s[i]].end(), low) - uv[s[i]].begin();
+                if(x < uv[s[i]].size() && low == uv[s[i]][x]){
+                    low++;
+                    x = lower_bound(uv[s[i]].begin(), uv[s[i]].end(), low) - uv[s[i]].begin();
+                }
+                if(x == uv[s[i]].size())
+                    return false;
+                else 
+                    low = uv[s[i]][x];
+            }
+            else
+                return false;
         }
 
-        if(i == n1)
-            return true;
-        return false;
+        return true;
     }
 };
