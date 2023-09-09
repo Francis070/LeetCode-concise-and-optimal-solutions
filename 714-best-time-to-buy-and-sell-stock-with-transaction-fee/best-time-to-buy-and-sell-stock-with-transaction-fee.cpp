@@ -1,26 +1,27 @@
 class Solution {
 public:
 
-    int rec(int ind, int n, bool chk, int f, vector<int> &p, vector<vector<int>> & dp){
-        if(ind >= n)
+    int rec(int index, int n, bool chk, int fee, vector<int> &prices, vector<vector<int>> & dp){
+        if(index >= n)
             return 0;
-        if(dp[ind][chk] != -1)
-            return dp[ind][chk];
-            
+        if(dp[index][chk] != -1)
+            return dp[index][chk];
+
         int ans = 0;
-        if(chk){
-            int a = (-1 * p[ind]) + rec(ind + 1, n, 0, f, p, dp);
-            int b =  rec(ind + 1, n, 1, f, p, dp);
 
-            ans = max(a, b);
+        if(chk){   // case when I am allowed to buy the stock
+            int buying = (-1 * prices[index]) + rec(index + 1, n, 0, fee, prices, dp);
+            int notBuying =  rec(index + 1, n, 1, fee, prices, dp);
+
+            ans = max(buying, notBuying);
         }
-        else{
-            int a = p[ind] +  rec(ind + 1, n, 1, f, p, dp) - f;
-            int b = rec(ind + 1, n, 0, f, p, dp);
-            ans = max(a, b);
+        else{    // case when I am allowed to sell the stock with a transaction fee.
+            int selling = prices[index] +  rec(index + 1, n, 1, fee, prices, dp) - fee;   // reducing the transaction fee.
+            int notSelling = rec(index + 1, n, 0, fee, prices, dp);
+            ans = max(selling, notSelling);
         }
 
-        return dp[ind][chk] = ans;
+        return dp[index][chk] = ans;
     }
 
     int maxProfit(vector<int>& prices, int fee) {
