@@ -10,19 +10,51 @@
  */
 class Solution {
 public:
-    bool isPalindrome(ListNode* head) {
-        vector<int> v;
-        ListNode * temp = head;
 
-        while(temp){
-            v.push_back(temp->val);
-            temp = temp->next;
+    ListNode * reverse(ListNode * s){
+        ListNode * a = NULL, *b = s, *c = s->next;
+
+        while(c){
+            b->next = a;
+            a = b;
+            b = c;
+            // if(c != NULL)
+                c = c->next;
         }
-        int n = v.size();
-        for(int i = 0; i < v.size()/2; i++){
-            if(v[i] != v[n - i - 1])
+        b->next = a;
+        ListNode * r = b;
+        while(r)
+        {
+            cout<<r->val<<" ";
+            r = r->next;
+        }
+        return b;
+    }
+
+    bool isPalindrome(ListNode* head) {
+
+        if(head->next == NULL)  
+            return true;
+
+        ListNode * s = head, *f = head;
+
+        while(f){
+            s = s->next;
+            if(f->next == NULL)
+                break;
+            f = f->next->next;
+        }
+
+        ListNode * e = reverse(s);
+        ListNode * a = head, *b = e;
+        while(a && b){
+            if(a->val != b->val)
                 return false;
+            a = a->next;
+            b = b->next;
         }
+
         return true;
-    } 
+
+    }
 };
