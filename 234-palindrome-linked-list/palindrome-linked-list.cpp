@@ -18,16 +18,9 @@ public:
             b->next = a;
             a = b;
             b = c;
-            // if(c != NULL)
-                c = c->next;
+            c = c->next;
         }
         b->next = a;
-        ListNode * r = b;
-        while(r)
-        {
-            cout<<r->val<<" ";
-            r = r->next;
-        }
         return b;
     }
 
