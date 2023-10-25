@@ -1,16 +1,15 @@
 class Solution {
 public:
-
-    int rec(int n, int k){
+    int kthGrammar(int n, int k) {
         if(n == 1){
             return 0;
         }
         
         int cur;
         if(k % 2 == 1)
-            cur = rec(n-1, (k + 1)/2);
+            cur = kthGrammar(n-1, (k + 1)/2);
         else
-            cur = rec(n-1, k/2);
+            cur = kthGrammar(n-1, k/2);
         
         int ans;
         if(cur == 0){
@@ -26,11 +25,6 @@ public:
                 ans = 1;
         }
 
-        return ans;
-    }
-
-    int kthGrammar(int n, int k) {
-        int ans = rec(n, k);
         return ans;
     }
 };
