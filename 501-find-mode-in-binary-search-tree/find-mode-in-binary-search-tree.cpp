@@ -11,26 +11,52 @@
  */
 class Solution {
 public:
-    unordered_map<int, int> um;
+    unordered_set<int> st;
+    int top, cnt;
+    TreeNode * prev;
+
     void rec(TreeNode * root){
         if(root == NULL)
             return;
-        
-        um[root->val]++;
+        //left
         rec(root->left);
+        // prev = root->left;
+
+        //mid
+        if(prev != NULL){
+            if(prev->val == root->val){
+                cnt++;
+            }
+            else
+                cnt = 1;
+            if(cnt > top){
+                top = cnt;
+                st.clear();
+                st.insert(root->val);
+            }
+            else if(cnt == top){
+                st.insert(root->val);
+            }
+        }
+        else{
+            cnt = 1; top = max(top, 1);
+            if(cnt == top)
+                st.insert(root->val);
+        }
+
+        prev = root;
+        //right
         rec(root->right);
     }
+
     vector<int> findMode(TreeNode* root) {
-        int mx = 0;
+        top = 0, cnt = 0, prev = NULL;
         rec(root);
-        for(auto &x : um){
-            mx = max(mx, x.second);
-        }
+
         vector<int> ans;
-        for(auto &x : um){
-            if(x.second == mx)
-                ans.push_back(x.first);
+        for(int x : st){
+            ans.push_back(x);
         }
         return ans;
-    }
+    }   
 };
