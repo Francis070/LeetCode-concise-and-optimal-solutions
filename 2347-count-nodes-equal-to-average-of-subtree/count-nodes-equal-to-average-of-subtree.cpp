@@ -11,24 +11,30 @@
  */
 class Solution {
 public:
+    int ans;
 
-    int ans = 0;
-
-    pair<int, int> solve(TreeNode* r){
-        if(r == NULL)
+    pair<int, int> rec(TreeNode * root){
+        if(root == NULL){
             return {0, 0};
+        }
 
-        pair<int, int> a = solve(r->left),
-        b = solve(r->right);
+        pair<int, int> left_subtree = rec(root->left);
+        pair<int, int> right_subtree = rec(root->right);
 
-        if((a.first + b.first + r->val)/(1 + a.second + b.second) == r->val)
+        int tot_cnt = left_subtree.first + right_subtree.first + 1;
+        int tot_sum = left_subtree.second + right_subtree.second + root->val;
+        
+        if((tot_sum/tot_cnt) == root->val){
+            // cout<<tot_cnt<<" "<<tot_sum<<" "<<root->val<<endl;
             ans++;
+        }
 
-        return {(a.first + b.first + r->val), (1 + a.second + b.second)};
+        return {tot_cnt, tot_sum};
     }
 
     int averageOfSubtree(TreeNode* root) {
-        pair<int, int> res = solve(root);
+        ans = 0;
+        pair<int, int> a = rec(root);
 
         return ans;
     }
