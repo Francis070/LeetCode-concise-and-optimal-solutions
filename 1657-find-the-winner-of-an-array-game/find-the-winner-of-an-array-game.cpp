@@ -4,32 +4,30 @@ public:
         int n = arr.size();
 
         int mx = *max_element(arr.begin(), arr.end());
-        
+
         int cur = arr[0];
         queue<int> q;
         for(int i = 1;i < n; i++)
             q.push(arr[i]);
 
-        unordered_map<int, int> um;
+        // unordered_map<int, int> um;
+        int cnt = 0;
         while(cur != mx){
             int x = q.front();
             if(x < cur){
-                um[cur]++;
-                q.pop();
                 q.push(x);
-                if(um[cur] == k){
-                    return cur;
-                } 
+                cnt++;
             }
             else{
                 q.push(cur);
                 cur = x;
-                q.pop();
-                um[cur]++;
-                if(um[cur] == k){
-                    return cur;
-                } 
+                cnt = 1;
             }
+            q.pop();
+            // um[cur]++;
+            if(cnt == k){
+                return cur;
+            } 
         }
 
         return mx;
