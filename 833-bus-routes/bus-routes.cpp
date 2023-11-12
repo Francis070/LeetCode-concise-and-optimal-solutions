@@ -23,7 +23,7 @@ public:
         bool dest = false;
         while(q.size() > 0){
             int sz = q.size();
-            // vector<int> temp;
+            vector<int> temp;
             for(int i = 0; i < sz; i++){
                 int rn = q[i];
                 for(int j = 0; j < routes[rn].size(); j++){
@@ -34,20 +34,21 @@ public:
                         int node = routes[rn][j];
                         for(int k = 0; k < um[node].size(); k++){
                             if(vis.find(um[node][k]) == vis.end()){
-                                q.push_back(um[node][k]);
+                                // q.push_back(um[node][k]);
+                                temp.push_back(um[node][k]);
                                 vis.insert(um[node][k]);
                             }
                         }
                     }
                 }
             }
-            // q.clear();
-            // q = temp;
-            // temp.clear();
-            while(sz > 0){
-                q.erase(q.begin());
-                sz--;
-            }
+            q.clear();
+            q = temp;
+            temp.clear();
+            // while(sz > 0){
+            //     q.erase(q.begin());
+            //     sz--;
+            // }
             cnt++;
         }
 
