@@ -1,25 +1,30 @@
 class Solution {
 public:
-    int largestSubmatrix(vector<vector<int>>& matrix) {
-        int r = matrix.size(), c = matrix[0].size();
-        vector<vector<int>> v(r);
-        
-        for(int i = 0; i < c; i++){
-            int cur = 0;
-            for(int j = 0; j < r; j++){
-                if(matrix[j][i] == 1){
-                    cur++;
-                    v[j].push_back(cur);
+    int largestSubmatrix(vector<vector<int>>& mat) {
+        int n = mat.size(), m = mat[0].size();
+        vector<vector<int>> v(n);
+        for(int i = 0; i < m; i++){
+            int cnt = 0;
+            for(int j = 0; j< n; j++){
+                if(mat[j][i] == 1){
+                    cnt++;
                 }
-                else
-                    cur = 0;
+                else{
+                    cnt = 0;
+                }
+                if(cnt > 0)
+                    v[j].push_back(cnt);
             }
         }
+
         int ans = 0;
-        for(int i = 0; i < r; i++){
+
+        for(int i = 0; i < n; i++){
             sort(v[i].begin(), v[i].end(), greater<int>());
-            for(int j = 1; j <= v[i].size(); j++)
-                ans = max(ans, j * v[i][j-1]);
+
+            for(int j = 0; j < v[i].size(); j++){
+                ans = max(ans, (j + 1) * v[i][j]);
+            }
         }
 
         return ans;
