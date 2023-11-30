@@ -5,13 +5,14 @@ public:
             return 0;
         }
 
-        int k = 0;
-        int curr = 1;
-        while (curr * 2 <= n) {
-            curr *= 2;
+        int k = 0, t = n;
+        while(t > 0){
+            t >>= 1;
             k++;
         }
 
-        return (pow(2, k + 1) - 1 - minimumOneBitOperations(n ^ curr));
+        int curr = pow(2, k-1);
+
+        return (pow(2, k) - 1 - minimumOneBitOperations(n ^ curr));
     }
 };
