@@ -8,16 +8,15 @@ public:
         }
         int ans =0;
         for(int i = 0; i < n; i++){
-            unordered_map<char, int> temp = um;
+            unordered_map<char, int> temp;
             int sz = words[i].size();
             bool chk = true;
             for(int k = 0; k < sz; k++){
-                if(temp.find(words[i][k]) == temp.end() || temp[words[i][k]] == 0){
+                temp[words[i][k]]++;
+
+                if(temp[words[i][k]] > um[words[i][k]]){
                     chk = false;
                     break;
-                }
-                else{
-                    temp[words[i][k]]-=1;
                 }
             }
 
