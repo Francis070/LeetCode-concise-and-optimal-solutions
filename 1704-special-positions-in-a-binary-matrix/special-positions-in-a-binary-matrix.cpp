@@ -10,8 +10,6 @@ public:
                 if(mat[i][j]) cnt++;
             }
             a[i] = cnt;
-            // if(cnt == 1)
-            //     av++;
         }
 
         for(int i = 0; i < m; i++){
@@ -20,17 +18,12 @@ public:
                 if(mat[j][i]) cnt++;
             }
             b[i] = cnt;
-            // if(cnt == 1)
-            //     bv++;
         }
         int ans = 0;
         for(int i= 0; i < n; i++)
             for(int j = 0; j < m; j++)
-                if(a[i] == 1 && b[j] == 1 && mat[i][j]){
-                    // cout<<i<<"-"<<j<<endl;
+                if(a[i] == 1 && b[j] == 1 && mat[i][j])
                     ans++;
-                    // break;
-                }
             
         return ans;
     }
