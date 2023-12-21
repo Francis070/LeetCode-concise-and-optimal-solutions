@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    int rec(int ind, int n, int m, vector<int>& pr, vector<int> ne,  vector<vector<int>>& sp, map<vector<int>, int> &mp){
+    int rec(int ind, int n, int m, vector<int>& pr, vector<int> ne, vector<vector<int>>& sp, map<vector<int>, int> &mp){
         int cnt = 0;
         for(int i = 0; i < n; i++){
             if(ne[i] > 0) cnt++;
@@ -19,7 +19,6 @@ public:
             return mp[ne];
         }
 
-        //select the special
         int ans = INT_MAX;
 
         vector<int> temp = ne;
@@ -33,14 +32,13 @@ public:
                 temp[i] -= sp[ind][i];
             }
         }
-
+        // select the special if it can be availed.
         if(chk){
             ans = min(ans, sp[ind][n] + rec(0, n, m, pr, temp, sp, mp));
         }
         // else{
         //dont select the special
         ans = min(ans, rec(ind + 1, n, m, pr, ne, sp, mp));
-        // }
 
         return mp[ne] = ans;
     }
