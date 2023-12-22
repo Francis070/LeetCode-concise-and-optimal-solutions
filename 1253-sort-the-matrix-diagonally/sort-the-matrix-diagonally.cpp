@@ -17,6 +17,9 @@ public:
                         mat[x++][y++] = t[k];
                     }
                 }
+                else{
+                    continue;
+                }
             }
         }
 
