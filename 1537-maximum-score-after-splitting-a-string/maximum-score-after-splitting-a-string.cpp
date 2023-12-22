@@ -3,17 +3,18 @@ public:
     int maxScore(string s) {
         int n = s.size();
 
-        int count_ones = 0, count_zeroes = 0;
-        for(char c : s)
-            if(c == '1') count_ones++;
-        
-        int ans = 0;
-        for(int i = 0; i < n-1; i ++){
-            if(s[i] == '0') count_zeroes++;
-            else count_ones--;
-            ans = max(ans, count_zeroes + count_ones);
+        int cnt_z = 0, cnt_o = 0, ans = INT_MIN;
+        for(int i = 0; i < n; i++){
+            if(s[i] == '0')
+                cnt_z++;
+            else
+                cnt_o++;
+            
+            if(i != s.size() - 1){
+                ans = max(ans, cnt_z - cnt_o);
+            }
         }
 
-        return ans;
+        return ans + cnt_o;
     }
 };
