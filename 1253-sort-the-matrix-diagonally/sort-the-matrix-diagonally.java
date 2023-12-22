@@ -17,6 +17,9 @@ class Solution {
                         mat[x++][y++] = t.get(k);
                     }
                 }
+                else{
+                    continue;
+                }
             }
         }
 
