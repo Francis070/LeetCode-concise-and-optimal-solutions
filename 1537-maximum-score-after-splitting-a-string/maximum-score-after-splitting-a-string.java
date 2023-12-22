@@ -4,18 +4,19 @@ class Solution {
 
         int cnt_z = 0, cnt_o = 0;
 
-        char[] ch = s.toCharArray();
+        int ans = Integer.MIN_VALUE;
 
-        for(int i =0 ; i < n; i++){
-            if(ch[i] == '1') cnt_o++;
-        }
-        int ans = 0;
-        for(int i = 0; i< n-1; i++){
-            if(ch[i] == '1') cnt_o--;
-            else cnt_z++;
-            ans = Math.max(ans, cnt_o + cnt_z);
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) == '1')
+                cnt_o++; 
+            else
+                cnt_z++;
+
+            if(i != s.length() - 1){
+                ans = Math.max(ans, cnt_z - cnt_o);
+            }
         }
 
-        return ans;
+        return ans + cnt_o;
     }
 }
