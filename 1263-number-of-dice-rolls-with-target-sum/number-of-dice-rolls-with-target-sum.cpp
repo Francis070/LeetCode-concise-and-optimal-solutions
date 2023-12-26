@@ -6,7 +6,7 @@ public:
         if(target == 0 && n == 0){
             return 1;
         }
-        if((n * k < target) || n <= 0 || target <= 0){
+        if(n <= 0 || target <= 0){
             return 0;
         }
 
