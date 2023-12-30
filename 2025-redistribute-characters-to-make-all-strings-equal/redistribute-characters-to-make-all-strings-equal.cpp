@@ -3,16 +3,18 @@ public:
     bool makeEqual(vector<string>& words) {
         int n = words.size();
 
-        // vector<pair<string, bool>> vs(n);
-        unordered_map<char, int> um;
-        for(int i =0; i < n; i++){
+        // unordered_map<char, int> um;
+        int char_arr[26] = {0};
+
+        for(int i =0; i < n; i++){   // collecting all the characters.
             for(char c : words[i]){
-                um[c]++;
+                char_arr[c - 'a']++;
             }
         }
-
-        for(auto &x : um){
-            if(x.second % n != 0)
+        
+// checking that whether the characters that were collected can be divided into the size of the words vector.
+        for(int i = 0; i< 26; i++){
+            if(char_arr[i] > 0 && char_arr[i] % n != 0)
                 return false;
         }
 
