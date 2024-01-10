@@ -57,14 +57,5 @@ public:
         }
 
         return l;
-
-        // for(auto & x : adjs){
-        //     cout<<x.first<<"->";
-        //     for(int i = 0; i < x.second.size(); i++){
-        //         cout<<x.second[i]<<",";
-        //     }
-        //     cout<<endl;
-        // }
-        // return 0;
     }
 };
