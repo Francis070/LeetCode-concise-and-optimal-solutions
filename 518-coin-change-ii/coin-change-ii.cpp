@@ -1,30 +1,24 @@
 class Solution {
 public:
 
-    int rec(int ind, int n, int amount, vector<int> &coins, vector<vector<int>> &dp){
-        if(amount == 0 || ind >= n){
-            if(amount == 0)
-                return 1;
-            else
-                return 0;
+    int rec(int ind, int n , int amt, vector<int> &coin, vector<vector<int>> &dp){
+        if(amt == 0 || ind >= n){
+            if(amt == 0) return 1;
+            return 0;
         }
-        if(dp[ind][amount] != -1)
-            return dp[ind][amount];
-        int ans = 0;
+        if(dp[ind][amt] != -1)
+            return dp[ind][amt];
+        int take = 0;
+        if(coin[ind] <= amt)
+            take = rec(ind, n, amt - coin[ind], coin, dp);
+        int ntake = rec(ind + 1, n, amt, coin, dp);
 
-        for(int i =ind; i < n; i++){
-            if(amount - coins[i] >= 0){
-                ans += rec(i, n, amount - coins[i], coins, dp);
-            }
-        }
-
-        return dp[ind][amount] = ans;
+        return dp[ind][amt] = take + ntake;
     }
 
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
-
-        vector<vector<int>> dp(n, vector<int>(amount + 5, -1));
+        vector<vector<int>> dp(n+ 1, vector<int>(amount + 2, -1));
 
         return rec(0, n, amount, coins, dp);
     }
