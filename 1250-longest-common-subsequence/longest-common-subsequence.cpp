@@ -3,19 +3,22 @@ public:
     int longestCommonSubsequence(string text1, string text2) {
         int n = text1.size(), m = text2.size();
 
-        vector<vector<int>> v(n + 1, vector<int>(m + 1, 0));
-
-        for(int i = 1; i <= n; i++){
-            for(int j = 1; j<= m; j++){
-                if(text1[i-1] == text2[j-1]){
-                    v[i][j] = max(v[i-1][j-1] + 1, max(v[i-1][j], v[i][j-1]) );
+        vector<int> prev(n + 1, 0), cur(n + 1, 0);
+        int ans = 0;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(text2[i] == text1[j]){
+                    cur[j + 1] =  1 + prev[j];
                 }
                 else{
-                    v[i][j] = max(v[i-1][j], v[i][j-1]);
+                    cur[j + 1] = max(cur[j], prev[j + 1]);
                 }
+                ans = max(ans, cur[j + 1]);
             }
+            prev = cur;
+            fill(cur.begin(), cur.end(), 0);
         }
 
-        return v[n][m];
+        return ans;
     }
 };
