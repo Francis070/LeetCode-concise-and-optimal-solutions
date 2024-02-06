@@ -11,18 +11,20 @@ public:
             sort(temp.begin(), temp.end());
             vs[temp].push_back(words[i]);
 
-
         }
 
         vector<vector<string>> ans;
 
         for(auto x : vs){
-            vector<string > t;
-            for(auto c : x.second)
-                t.push_back(c);
-            ans.push_back(t);
+            ans.push_back(x.second);
         }
 
         return ans;
     }
 };
+
+/*
+complexities = 
+time =  N * MlogM
+space = N*M
+*/
