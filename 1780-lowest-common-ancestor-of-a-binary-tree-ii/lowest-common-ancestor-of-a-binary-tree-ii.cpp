@@ -37,12 +37,14 @@ public:
     }
 
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        // bool a = find(root, p)
-        if(find(root, p) && find(root, q)){
-            TreeNode * ans = NULL;
-            bool x = flca(root, p, q, ans);
-            return ans;
-        }
-        return NULL;
+        // if(find(root, p) && find(root, q)){
+        //     TreeNode * ans = NULL;
+        //     bool x = flca(root, p, q, ans);
+        //     return ans;
+        // }
+        // return NULL;
+        TreeNode * ans = NULL;
+        bool x = flca(root, p, q, ans);
+        return ans;
     }
 };
