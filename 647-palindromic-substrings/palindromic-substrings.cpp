@@ -1,36 +1,21 @@
 class Solution {
 public:
 
-    int count_substring(string &s, bool is_odd){
+    int count_substring(string &s, int value){
         int count = 0;
         int size = s.size();
-        if(is_odd){
-            
-            for(int i = 0; i < size; i++){
-                int temp_cnt = 0;
-                int left = i - 1, right = i + 1;
-                while(left >= 0 && right < size && s[left] == s[right]){
-                    temp_cnt++;
-                    left--;
-                    right++;
-                }
-                count += temp_cnt;
-            }
-        }
-        else{
 
-            for(int i = 1; i < size; i++){
-                int temp_cnt = 0;
-                int left = i - 1, right = i;
-                 while(left >= 0 && right < size && s[left] == s[right]){
-                    temp_cnt++;
-                    left--;
-                    right++;
-                }
-                count += temp_cnt;
+        for(int i = 0; i < size; i++){
+            int temp_cnt = 0;
+            int left = i - 1, right = i + value;
+            while(left >= 0 && right < size && s[left] == s[right]){
+                temp_cnt++;
+                left--;
+                right++;
             }
-
+            count += temp_cnt;
         }
+    
 
         return count;
     }
@@ -40,11 +25,11 @@ public:
         int ans = size;
         // checking for odd length substring
 
-        ans = ans + count_substring(s, true);
+        ans = ans + count_substring(s, 1);
 
         // checking for even length substring
 
-        ans = ans + count_substring(s, false);
+        ans = ans + count_substring(s, 0);
 
         return ans;
     }
