@@ -12,25 +12,39 @@
 class Solution {
 public:
 
-    int dfs(TreeNode* root, int &ans){
-        if(root->left == NULL && root->right == NULL)
+    int lng(TreeNode * root){
+        if(root == NULL)
             return 0;
-        int left_side = 0, right_side = 0;
+        
+        int cmax = 0;
+        int lft = 0, rht = 0;
         if(root->left != NULL)
-            left_side = 1 + dfs(root->left, ans);
+            lft = 1 + lng(root->left);
         if(root->right != NULL)
-            right_side = 1 + dfs(root->right, ans);
+            rht = 1 + lng(root->right);
 
-        ans = max(ans, left_side + right_side);
+        cmax = max(lft, rht);
+        return cmax;
+    }
 
-        return max(left_side, right_side);
+    void rec(TreeNode * root, int & ans){
+        if(root == NULL)
+            return;
+        
+        int lft = 0, rht = 0;
+        if(root->left != NULL)
+            lft = 1 + lng(root->left);
+        if(root->right != NULL)
+            rht = 1 + lng(root->right);
+        // cout<<root->val<<" "<<lft<<" "<<rht<<endl;
+        rec(root->left, ans);
+        rec(root->right, ans);
+        ans = max(ans, lft + rht);
     }
 
     int diameterOfBinaryTree(TreeNode* root) {
         int ans = 0;
-
-        int k = dfs(root, ans);
-
+        rec(root, ans);
         return ans;
     }
 };
