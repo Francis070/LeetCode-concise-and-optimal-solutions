@@ -27,19 +27,20 @@ public:
         return cmax;
     }
 
-    void rec(TreeNode * root, int & ans){
+    int rec(TreeNode * root, int & ans){
         if(root == NULL)
-            return;
+            return 0;
         
         int lft = 0, rht = 0;
         if(root->left != NULL)
-            lft = 1 + lng(root->left);
+            lft = 1 + rec(root->left, ans);
         if(root->right != NULL)
-            rht = 1 + lng(root->right);
+            rht = 1 + rec(root->right, ans);
         // cout<<root->val<<" "<<lft<<" "<<rht<<endl;
-        rec(root->left, ans);
-        rec(root->right, ans);
+        // rec(root->left, ans);
+        // rec(root->right, ans);
         ans = max(ans, lft + rht);
+        return max(lft, rht);
     }
 
     int diameterOfBinaryTree(TreeNode* root) {
