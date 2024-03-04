@@ -1,30 +1,43 @@
+#define ll long long
+
 class Solution {
 public:
-    int bagOfTokensScore(vector<int>& tokens, int power) {
-        int n = tokens.size();
-        int ans = 0;
-        int points = 0;
-        sort(tokens.begin(), tokens.end());
+    int bagOfTokensScore(vector<int>& token, int pow) {
+        int n = token.size();
+        sort(begin(token), end(token));
 
         int i = 0, j = n-1;
+        int sc = 0;
+        int msc = 0;
+
         while(i <= j){
-            if(power >= tokens[i]){
-                points++;
-                ans = max(ans, points);
-                power -= tokens[i];
-                i++;
+            if(sc == 0){
+                if(pow >= token[i]){
+                    pow -= token[i];
+                    sc++;
+                    msc = max(msc, sc);
+                    i++;
+                }
+                else{
+                    break;
+                }
             }
             else{
-                if(points == 0)
-                    break;
+                if(pow >= token[i]){
+                    pow -= token[i];
+                    sc++;
+                    msc = max(msc, sc);
+                    i++;
+                }
                 else{
-                    points--;
-                    power += tokens[j];
+                    sc--;
+                    pow += token[j];
                     j--;
                 }
             }
         }
 
-        return ans;
+        return msc;
+
     }
 };
