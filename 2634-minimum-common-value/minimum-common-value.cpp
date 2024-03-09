@@ -1,15 +1,14 @@
 class Solution {
 public:
     int getCommon(vector<int>& nums1, vector<int>& nums2) {
-        unordered_set<int> st;
-        sort(nums2.begin(), nums2.end());
-        for(int j : nums1)
-            st.insert(j);
+        sort(begin(nums1), end(nums1));
+        sort(begin(nums2), end(nums2));
 
-        for(int j : nums2)
-            if(st.find(j) != st.end())
-                return j;
-        
+        for(int i : nums1){
+            if(binary_search(begin(nums2), end(nums2), i))
+                return i;
+        }
+
         return -1;
     }
 };
