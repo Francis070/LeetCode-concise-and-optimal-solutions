@@ -26,7 +26,7 @@ public:
         return cur;
     }
 
-    ListNode * dit(ListNode * head){
+    ListNode * getDoubled(ListNode * head){
         ListNode * dummy = new ListNode (10);
         ListNode * temp = dummy, * cur = head;
         int car = 0;
@@ -45,19 +45,18 @@ public:
         if(car != 0){
             ListNode * qw = new ListNode (car);
             temp->next = qw;
-
         }
 
         return dummy->next;
     }
 
     ListNode* doubleIt(ListNode* head) {
-        ListNode * revit = reverse(head);
+        ListNode * reversedHead = reverse(head);
 
-        ListNode * doubleit = dit(revit);
+        ListNode * doubled = getDoubled(reversedHead);
 
-        ListNode * agrevit = reverse(doubleit);
+        ListNode * reverseAnswer = reverse(doubled);
 
-        return agrevit;
+        return reverseAnswer;
     }
 };
