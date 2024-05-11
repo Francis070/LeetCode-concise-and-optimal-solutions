@@ -8,13 +8,13 @@ public:
         return a.first < b.first;
     }
 
-    double mincostToHireWorkers(vector<int>& qu, vector<int>& wa, int k) {
-        int n = wa.size();
+    double mincostToHireWorkers(vector<int>& quality, vector<int>& wages, int k) {
+        int n = wages.size();
 
         vector<pair<int, double>> vp;
         for(int i =0 ; i < n; i++){
-            double rat = static_cast<double>(wa[i])/static_cast<double>(qu[i]);
-            vp.push_back({qu[i], rat});
+            double rat = static_cast<double>(wages[i])/static_cast<double>(quality[i]);
+            vp.push_back({quality[i], rat});
         }
 
         sort(begin(vp), end(vp), comp);
