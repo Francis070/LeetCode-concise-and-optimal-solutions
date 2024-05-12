@@ -13,12 +13,9 @@ public:
         return (mx == mn);
     }
 
-    ll rec(int pre, int ind, string &s, int n, vector<vector<int>> & dp , vector<int> &freq
-    // vector<vector<int>> & freq
-    ){
-        if(ind >= n){
+    ll rec(int previous_index, int current_index, string &s, int n, vector<vector<int>> & dp , vector<int> &freq){
+        if(current_index >= n){
             if(chk( freq )){
-            // if(chk(s.substr(pre, ind - pre + 1))){
                 return 1;
             }
             else{
@@ -26,21 +23,20 @@ public:
             }
         }
 
-        if(dp[pre][ind] < INT_MAX){
-            return dp[pre][ind];
+        if(dp[previous_index][current_index] < INT_MAX){
+            return dp[previous_index][current_index];
         }
         
         ll cur = INT_MAX;
-        freq[s[ind] - 'a']++;
-        // if(chk(s.substr(pre, ind - pre + 1))){
+        freq[s[current_index] - 'a']++;
         if(chk(freq)){
             vector<int> nf(26, 0);
-            cur = min(cur, 1 + rec(ind + 1, ind + 1, s, n, dp, nf));
+            cur = min(cur, 1 + rec(current_index + 1, current_index + 1, s, n, dp, nf));
         }
-        cur = min(cur, rec(pre, ind + 1 , s, n, dp, freq));
+        cur = min(cur, rec(previous_index, current_index + 1 , s, n, dp, freq));
 
 
-        return dp[pre][ind] = cur;
+        return dp[previous_index][current_index] = cur;
     }
 
     int minimumSubstringsInPartition(string s) {
@@ -51,29 +47,11 @@ public:
         // partition dp
 
         int n = s.size();
-        // vector<vector<int>> freq(26, vector<int>(n+4, 0));
-        // for(int i =0; i< n; i++){
-        //     freq[s[i] - 'a'][i]++;
-        // }
-
-        // for(int i =0; i < 26; i++){
-        //     for(int j = 1; j < n+4; j++){
-        //         freq[i][j] += freq[i][j-1];
-        //     }
-        // }
-
-        // for(int i = 0; i < 26; i++){
-        //     for(int j = 0; j < n+4; j++){
-        //         cout<<freq[i][j]<<" ";
-        //     }
-        //     cout<<endl;
-        // }
         vector<int> freq(26, 0);
 
         vector<vector<int>> dp(n + 4, vector<int>(n + 4, INT_MAX));
         ll ans = rec(0, 0, s, n, dp, freq);
 
         return ans;
-        // return 0;
     }
 };
