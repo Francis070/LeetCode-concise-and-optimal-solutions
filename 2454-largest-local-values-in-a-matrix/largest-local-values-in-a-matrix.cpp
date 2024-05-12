@@ -10,14 +10,6 @@ public:
             }
         }
 
-        // cout<<i<<" "<<j<<endl;
-        // for(int s = i; s < i + 3; s++){
-        //     for(int c = j; c < j + 3; c++){
-        //         cout<<grid[s][c]<<" ";
-        //     }
-        //     cout<<endl;
-        // }
-
         return mp;
     }
 
@@ -43,10 +35,6 @@ public:
                     }
                     ans[i][j] = prev(mp.end())->first;
                 }
-                // cout<<i<<" "<<j<<endl;
-                // for(auto &x : mp){
-                //     cout<<x.first<<" "<<x.second<<endl;
-                // }
             }
         }
 
