@@ -1,14 +1,14 @@
 class Solution {
 public:
 
-    vector<pair<int, int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    vector<pair<int, int>> directions = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
-    bool chk(vector<vector<int>> &dis, int mid){
-        int n = dis.size();
-        vector<vector<int>> vis(n, vector<int>(n, 0));
+    bool check(vector<vector<int>> &distance, int mid){
+        int n = distance.size();
+        vector<vector<int>> visited(n, vector<int>(n, 0));
         queue<pair<int, int>> q;
-        if(dis[0][0] >= mid){
-            vis[0][0] = 1;
+        if(distance[0][0] >= mid){
+            visited[0][0] = 1;
             q.push({0, 0});
         }
         else{
@@ -20,11 +20,11 @@ public:
             q.pop();
 
             for(int i = 0; i < 4; i++){
-                int x = cur.first+ dirs[i].first;
-                int y = cur.second + dirs[i].second;
+                int x = cur.first+ directions[i].first;
+                int y = cur.second + directions[i].second;
 
-                if(x >= 0 && x < n && y >= 0 && y < n && vis[x][y] == 0 && dis[x][y] >= mid){
-                    vis[x][y] = 1;
+                if(x >= 0 && x < n && y >= 0 && y < n && visited[x][y] == 0 && distance[x][y] >= mid){
+                    visited[x][y] = 1;
                     q.push({x, y});
                     if(x == n-1 && y == n-1)
                         return true;
@@ -35,9 +35,8 @@ public:
         return false;
     }
 
-    int maximumSafenessFactor(vector<vector<int>>& grid) {
+    vector<vector<int>> getDistance(vector<vector<int>>& grid){
         int n = grid.size();
-
         vector<vector<int>> dis(n, vector<int>(n, INT_MAX));
         queue<pair<int, int>> q;
 
@@ -61,8 +60,8 @@ public:
                 q.pop();
 
                 for(int i =0; i< 4; i++){
-                    int x = cur.first + dirs[i].first;
-                    int y = cur.second + dirs[i].second;
+                    int x = cur.first + directions[i].first;
+                    int y = cur.second + directions[i].second;
 
                     if(x >= 0 && x < n && y >= 0 && y < n && dis[x][y] == INT_MAX){
                         dis[x][y] = cnt;
@@ -71,17 +70,29 @@ public:
                 }
             }
         }
+
+        return dis;
+    }
+
+    int maximumSafenessFactor(vector<vector<int>>& grid) {
+        int n = grid.size();
+        vector<vector<int>> distance = getDistance(grid);
+
         int low = INT_MAX, high = INT_MIN;
+        //finding low and high for binary search
+
         for(int i =0; i < n; i++){
             for(int j = 0; j < n; j++){
-                low = min(low, dis[i][j]);
-                high = max(high, dis[i][j]);
+                low = min(low, distance[i][j]);
+                high = max(high, distance[i][j]);
             }
         }
+
+        // binary search
         int ans = 0;
         while(low <= high){
             int mid = low + (high - low)/2;
-            if(chk(dis, mid)){
+            if(check(distance, mid)){
                 ans = max(ans, mid);
                 low = mid + 1;
             }
