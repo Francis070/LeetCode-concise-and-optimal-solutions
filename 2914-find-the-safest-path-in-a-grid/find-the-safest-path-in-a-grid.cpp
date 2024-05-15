@@ -76,6 +76,7 @@ public:
 
     int maximumSafenessFactor(vector<vector<int>>& grid) {
         int n = grid.size();
+        
         vector<vector<int>> distance = getDistance(grid);
 
         int low = INT_MAX, high = INT_MIN;
