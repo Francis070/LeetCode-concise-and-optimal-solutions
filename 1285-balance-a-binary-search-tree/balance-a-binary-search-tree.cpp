@@ -12,35 +12,47 @@
 class Solution {
 public:
 
-    vector<int> v;
-
-    void store(TreeNode * r){
-        if(r == NULL)
-            return;
-
-        store(r->left);
-        v.push_back(r->val);
-        store(r->right);
-    }
-
-    TreeNode* create(int s, int e, int m){
-        if(s > e)
+    TreeNode * newTreeNode(int st, int en, vector<int> wv){
+        if(st == en){
+            TreeNode * ln = new TreeNode(wv[st], NULL, NULL);
+            return ln;
+        }
+        if(st > en)
             return NULL;
 
-        TreeNode * cur = new TreeNode(v[m]);
-        cur->left = create(s, m-1, (s + m-1)/2);
-        cur->right = create(m + 1, e, (m + 1 + e)/2);
+        int mid = st + (en - st)/2;
 
-        return cur;
+        TreeNode * cnn = new TreeNode(wv[mid]);
+
+        cnn->left = newTreeNode(st, mid - 1, wv);
+        cnn->right = newTreeNode(mid + 1, en, wv);
+
+        return cnn;
     }
-    
+
+    void getallvalues(TreeNode * root, vector<int> & av){
+        if(root == NULL)
+            return;
+
+        getallvalues(root->left, av);
+        getallvalues(root->right, av);
+
+        av.push_back(root->val);
+    }
+
     TreeNode* balanceBST(TreeNode* root) {
-        store(root);
+        vector<int> allvalues;
+        
+        getallvalues(root, allvalues);
 
-        int s = 0, e = v.size() - 1, m = (s + e)/2;
+        sort(begin(allvalues), end(allvalues));
 
-        TreeNode * ans = create(s, e, m);
+        // for(int x : allvalues)
+        //     cout<<x<<" ";
 
-        return ans;
+        TreeNode * ntn = newTreeNode(0, allvalues.size() - 1, allvalues);
+
+        return ntn;
+        // return NULL;
     }
 };
