@@ -1,33 +1,51 @@
 class Solution {
 public:
 
-    static bool comp(int a, int b){
-        string x = to_string(a), y = to_string(b);
+    static bool comp(string a, string b){
+        string er = a + b;
+        string fr = b + a;
+        return (er >= fr);
+    }
 
-        string c1 = x + y, c2 = y + x;
+    string removeStartZero(string a){
+        bool chk = false;
+        string er = "";
+        for(int i = 0; i < a.size(); i++){
+            if(a[i] != '0'){
+                chk = true;
+            }
+            if(chk){
+                er += a[i];
+            }
+        }
 
-        return c1 > c2;   //checking which result will give me greater integer.
+        if(!chk)
+            return "0";
+        
+        return er;
     }
 
     string largestNumber(vector<int>& nums) {
-        int n = nums.size();
+        vector<string> vs;
+        int zc = 0;
+        for(auto x : nums){
+            vs.push_back(to_string(x));
+            if(x == 0)
+                zc++;
+        }
 
-        string res = "";
+        if(zc == nums.size())
+            return "0";
 
-        //sorting the elements of the array greedily to get the max element from the array
-        sort(nums.begin(), nums.end(), comp);
-
-        //concatenating the numbers in the res variable.
-        for(int i =0 ; i < n; i++)
-            res += to_string(nums[i]);
-
-        // removing leading zeroes from the string.
-        int k = 0;
-        while(k < res.size()-1 && res[k] == '0')
-            k++;
+        sort(begin(vs), end(vs), comp);
         
-        res = res.substr(k, res.size() - k);
+        string res = "";
+        for(string s : vs)
+            res += s;
 
+        string ans = removeStartZero(res);
+        cout<<res;
+        
         return res;
     }
 };
