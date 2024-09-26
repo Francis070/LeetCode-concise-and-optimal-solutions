@@ -1,41 +1,44 @@
 class MyCalendar {
 public:
-    map<int, int> cal;
+    map<int, int> mp;
     MyCalendar() {
         
     }
     
     bool book(int start, int end) {
-        auto pos = cal.lower_bound(start);
-        if(cal.size() == 0){
-            cal[start] = end;
-            return true;
-        }
-        else if(pos == cal.begin()){
-            if(pos->first < end){
+        auto x = mp.lower_bound(start);
+
+        if(x == mp.begin() && mp.size() > 0){
+            if(end > x->first){
                 return false;
             }
-            else{
-                cal[start] = end;
+            else {
+                mp[start] = end;
                 return true;
             }
         }
-        else if(pos == cal.end()){
-            if(prev(pos)->second > start)
+        else if(x == mp.end() && mp.size() > 0){
+            x = prev(x);
+            if(start < x->second)
                 return false;
             else{
-                cal[start] = end;
+                mp[start] = end;
                 return true;
             }
         }
         else{
-            if(start == pos->first)
-                return false;
-            else if(pos->first < end || prev(pos)->second > start)
-                return false;
-            else{
-                cal[start] = end;
+            if(mp.size() == 0){
+                mp[start] = end;
                 return true;
+            }
+            else {
+                auto y = prev(x);
+                if(start < y->second || end > x->first)
+                    return false;
+                else{
+                    mp[start] = end;
+                    return true;
+                }
             }
         }
     }
