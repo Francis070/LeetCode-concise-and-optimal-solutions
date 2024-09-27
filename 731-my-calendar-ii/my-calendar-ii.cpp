@@ -14,9 +14,6 @@ public:
         auto pose = mp.upper_bound(end);
         vector<pair<int, int>> pairs;
 
-        
-
-        
         map<int, vector<int>>::iterator it;
         for(it = mp.begin(); it != pose; it++){
             int fr = it->first;
@@ -26,12 +23,6 @@ public:
                 }
             }
         }
-
-        // if(start == 11  && end == 19){
-        //     for(auto x : pairs){
-        //         cout<<x.first<<" "<<x.second<<endl;
-        //     }
-        // }
 
         map<int, int> mpDouble;
 
