@@ -4,22 +4,27 @@ public:
         int n = arr.size();
 
         unordered_map<int, int> um;
-        for(int i = 0; i < n; i ++){
-            um[(arr[i] % k + k)%k]++;
+        for(int i : arr){
+            um[(i%k + k)%k]++;
         }
+
+        // for(auto x : um){
+        //     cout<<x.first<<" "<<x.second<<endl;
+        // }
 
         for(auto x : um){
-            if(x.second > 0){
-                int a = x.first;
-                int b = (k - x.first)%k;
+            int fr = x.first;
+            int se = k - fr;
+            int re = -fr;
 
-                if(um.find(b) == um.end() || (a == b && (um[a] % 2 == 1)) || (a != b && um[a] != um[b]))
+            if(fr == 0){
+                if(x.second % 2 != 0)
                     return false;
-
-                um[a] = 0; um[b] = 0;
+            }
+            else {
+                if(!((fr == se && x.second%2 == 0) || (um[fr] == um[se]) || (um[fr] == um[re] )))               return false;
             }
         }
-
         return true;
     }
 };
